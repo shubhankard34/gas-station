@@ -7,38 +7,47 @@
                     <h1>Register</h1>
                 </div>
                 <div>
+                    <div *ngIf="infoMessages && infoMessages.length > 0">
+                        <div class="alert alert-success" *ngFor="let infoMessage of infoMessages" role="alert">
+                            {{infoMessage}}
+                        </div>
+                    </div>
+                    <div>
+                        <div class="alert alert-danger" *ngFor="let errorMessage of errorMessages" role="alert">
+                            {{errorMessage}}
+                        </div>
+                    </div>
                     <form>
                         <div class="form-group">
                             <label for="fname">First Name</label>
-                            <input type="text" class="form-control" id="fname" placeholder="John">
+                            <input type="text" class="form-control" [(ngModel)]="userDetails.fname" name="fname" id="fname" placeholder="John">
                         </div>
                         <div class="form-group">
                             <label for="lname">Last Name</label>
-                            <input type="text" class="form-control" id="lname" placeholder="Doe">
+                            <input type="text" class="form-control" [(ngModel)]="userDetails.lname" name="lname" id="lname" placeholder="Doe">
                         </div>
                         <div class="form-group">
                             <label for="contact">Contact Number</label>
-                            <!--<input type="text" class="form-control" id="contact" placeholder="Your mobile number">-->
                             <div class="input-group">
                                 <span class="input-group-addon" id="contact">+91</span>
-                                <input type="text" class="form-control" placeholder="Contact Number">
+                                <input type="text" class="form-control" [(ngModel)]="userDetails.contact" name="contact" placeholder="Contact Number">
                             </div>
                         </div>
                         <div class="form-group ">
                             <label for="email ">Email address</label>
-                            <input type="email " class="form-control " id="email " placeholder="Email ">
+                            <input type="email " class="form-control" [(ngModel)]="userDetails.email" name="email" id="email " placeholder="Email ">
                         </div>
                         <div class="form-group ">
                             <label for="password ">Password</label>
-                            <input type="password " class="form-control " id="password " placeholder="Password ">
+                            <input type="password" class="form-control " [(ngModel)]="userPassword" name="password" id="password " placeholder="Password ">
                         </div>
                         <div class="form-group ">
                             <label for="cpassword ">Confirm Password</label>
-                            <input type="password " class="form-control " id="password " placeholder="Confirm Password ">
+                            <input type="password" class="form-control " [(ngModel)]="userPasswordConfirm" name="cpassword" id="password " placeholder="Confirm Password ">
                         </div>
                     </form>
                     <div class="col-xs-12 gs-button ">
-                        <button type="submit " class="btn btn-success ">Register</button>
+                        <button type="submit " class="btn btn-success" (click)="onRegister()">Register</button>
                     </div>
 
                     <div class="col-xs-12 gs-login-link "><small>Already a member?</small> <a (click)="goToLoginPage() ">Login!</a></div>
