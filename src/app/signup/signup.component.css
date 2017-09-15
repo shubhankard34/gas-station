@@ -1,0 +1,25 @@
+.gs-button button {
+    width: 100%;
+}
+
+.gs-button {
+    padding-top: 0.5em;
+}
+
+.gs-button-label {
+    padding-right: 5%;
+}
+
+.container {
+    margin-top: 5%;
+}
+
+.gs-signup-box {
+    box-shadow: 2px 2px 2px 2px grey;
+    padding-bottom: 3em;
+}
+
+.gs-login-link {
+    margin-top: 1em;
+    text-align: right;
+}
