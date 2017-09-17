@@ -8,7 +8,9 @@ import { UserDashboardComponent } from "./user-dashboard/user-dashboard.componen
 export const APP_ROUTES: Routes = [
 	{
 		path: "",
-		component: AppComponent
+		redirectTo: "login",
+		pathMatch: "full"
+		// component: AppComponent
 	},
 	{
 		path: "login",
