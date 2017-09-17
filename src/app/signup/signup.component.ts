@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { AngularFireDatabase } from "angularfire2/database";
+import { Observable } from 'rxjs/Observable';
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase/app';
 import 'rxjs/add/operator/first';
 
 import { AuthService } from "../providers/auth.service";
@@ -11,8 +14,17 @@ import { UserDetails } from "../models/user-details";
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-
-  constructor(private router: Router, private authService: AuthService, private angularFireDatabase: AngularFireDatabase) { }
+  private user: Observable<firebase.User>;
+  constructor(private router: Router, private angularFireAuth: AngularFireAuth, private angularFireDatabase: AngularFireDatabase) {
+    this.user = angularFireAuth.authState;
+    this.user.subscribe(
+      (res: any) => {
+        if (res) {
+          router.navigate(["user-dashboard"]);
+        }
+      }
+    );
+  }
   private userPassword: string = "";
   private userPasswordConfirm: string = "";
   private errorMessages: string[] = [];
@@ -44,17 +56,19 @@ export class SignupComponent implements OnInit {
               }
             });
             if (!alreadyExists) {
-              this.authService.signup(this.userDetails.email, this.userPassword).then(
+              this.angularFireAuth.auth.createUserWithEmailAndPassword(this.userDetails.email, this.userPassword)
+                .then(
                 (res: any) => {
                   this.errorMessages = [];
                   this.infoMessages.push("Registered Successfully");
                   this.angularFireDatabase.list("/users").push(this.userDetails);
                   this.resetForm();
+                  console.log("SUCCESS" + res);
                 }
-
-              ).catch(
+                )
+                .catch(
                 (error: any) => {
-                  this.errorMessages.push("Could not register");
+                  this.errorMessages.push(error);
                 }
                 );
             }
@@ -78,3 +92,20 @@ export class SignupComponent implements OnInit {
   }
 
 }
+
+
+
+
+// this.authService.signup(this.userDetails.email, this.userPassword).then(
+//   (res: any) => {
+//     this.errorMessages = [];
+//     this.infoMessages.push("Registered Successfully");
+//     this.angularFireDatabase.list("/users").push(this.userDetails);
+//     this.resetForm();
+//   }
+
+// ).catch(
+//   (error: any) => {
+//     this.errorMessages.push("Could not register");
+//   }
+//   );
