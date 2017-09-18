@@ -8,6 +8,10 @@
 # dependencies
 /node_modules
 
+#deploy environment
+/deploy/public
+/deploy/functions/node_modules
+
 # IDEs and editors
 /.idea
 .project

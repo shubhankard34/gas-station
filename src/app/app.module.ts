@@ -12,6 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { AuthService } from "./providers/auth.service";
+import { AgmCoreModule } from "@agm/core" 
 
 export const fireBaseConfig = {
     apiKey: "AIzaSyDW4rG5TcGS7i93hQVLi69WB_fsoqVXilA",
@@ -21,6 +22,8 @@ export const fireBaseConfig = {
     storageBucket: "gas-station-dc8a2.appspot.com",
     messagingSenderId: "564281047749"
 };
+
+export const googleMapApiKey = "AIzaSyCIx6PCS1QqXGzmWw_A3LO7Y7cykdpnT5Q";
 
 @NgModule({
     declarations: [
@@ -33,9 +36,12 @@ export const fireBaseConfig = {
         BrowserModule,
         FormsModule,
         RouterModule.forRoot(APP_ROUTES, { useHash: true }),
-        AngularFireModule.initializeApp(fireBaseConfig)
+        AngularFireModule.initializeApp(fireBaseConfig),
+        AgmCoreModule.forRoot({
+            apiKey: googleMapApiKey
+        })
     ],
-    providers: [AngularFireDatabase,AngularFireAuth,AuthService],
+    providers: [AngularFireDatabase, AngularFireAuth, AuthService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
