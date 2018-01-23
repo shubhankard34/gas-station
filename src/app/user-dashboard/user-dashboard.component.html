@@ -31,4 +31,5 @@
         <agm-marker [latitude]=userLat [longitude]=userLng></agm-marker>
     </agm-map>
     <button class="btn btn-warning gs-mylocation-button" (click)="getMyLocation()">My Location</button>
+    <button *ngIf="canCreateRequest" class="btn btn-primary gs-mylocation-button" (click)="requestTechnician()">Request Technician</button>
 </div>

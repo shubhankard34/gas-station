@@ -66,6 +66,7 @@ export class LoginComponent implements OnInit {
       (res:any) => {
         let additionalUserInfo: any = res.additionalUserInfo.profile;
         let userDetails: UserDetails = {
+          id: "",
           fname: additionalUserInfo.given_name,
           lname: additionalUserInfo.family_name,
           email: additionalUserInfo.email,
