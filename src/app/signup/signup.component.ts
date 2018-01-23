@@ -31,6 +31,7 @@ export class SignupComponent implements OnInit {
   private infoMessages: string[] = [];
 
   private userDetails: UserDetails = {
+    id: "",
     fname: "",
     lname: "",
     contact: "",
@@ -82,6 +83,7 @@ export class SignupComponent implements OnInit {
 
   private resetForm(): void {
     this.userDetails = {
+      id: "",
       fname: "",
       lname: "",
       contact: "",
