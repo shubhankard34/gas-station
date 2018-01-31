@@ -1,0 +1,12 @@
+.gs-add-technician-box {
+    box-shadow: 2px 2px 2px 2px grey;
+    padding-bottom: 3em;
+}
+
+.gs-button button {
+    width: 100%;
+}
+
+.gs-button {
+    padding-top: 0.5em;
+}
