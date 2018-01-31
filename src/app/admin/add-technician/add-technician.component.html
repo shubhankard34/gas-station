@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-sm-3 col-xs-1"></div>
+        <div class="col-md-4 col-sm-6 col-xs-10 gs-add-technician-box">
+            <div>
+                <div class="page-header">
+                    <h1>Add New Technician</h1>
+                </div>
+                <div>
+                    <form>
+                        <div class="form-group">
+                            <label for="fname">First Name</label>
+                            <input type="text" class="form-control" [(ngModel)]="newTechnician.fname" name="fname" id="fname" placeholder="John">
+                        </div>
+                        <div class="form-group">
+                            <label for="lname">Last Name</label>
+                            <input type="text" class="form-control" [(ngModel)]="newTechnician.lname" name="lname" id="lname" placeholder="Doe">
+                        </div>
+                        <div class="form-group">
+                            <label for="contact">Contact Number</label>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="contact">+91</span>
+                                <input type="text" class="form-control" [(ngModel)]="newTechnician.contact" name="contact" placeholder="Contact Number">
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label for="email ">Email address</label>
+                            <input type="email " class="form-control" [(ngModel)]="newTechnician.email" name="email" id="email " placeholder="Email ">
+                        </div>
+                        <div class="form-group ">
+                            <label for="username ">Username</label>
+                            <input type="username " class="form-control" [(ngModel)]="newTechnician.username" name="username" id="username " placeholder="Username ">
+                        </div>
+                        <div class="form-group ">
+                            <label for="password ">Password</label>
+                            <input type="password" class="form-control" [(ngModel)]="newTechnician.password" name="password" id="password " placeholder="Password ">
+                        </div>
+                    </form>
+                    <div class="col-xs-12 gs-button ">
+                        <button type="submit " class="btn btn-success" (click)="addNewTechnician()">Add Technician</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-3 col-xs-1 "></div>
+    </div>
+</div>
