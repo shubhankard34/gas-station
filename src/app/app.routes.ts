@@ -3,8 +3,9 @@ import { ModuleWithProviders } from "@angular/core";
 
 import { AppComponent } from "./app.component"
 import { LoginComponent } from "./login/login.component";
-import { SignupComponent } from "./signup/signup.component"
-import { UserDashboardComponent } from "./user-dashboard/user-dashboard.component"
+import { SignupComponent } from "./signup/signup.component";
+import { UserDashboardComponent } from "./user-dashboard/user-dashboard.component";
+import { AdminComponent } from "./admin/admin.component";
 export const APP_ROUTES: Routes = [
 	{
 		path: "",
@@ -23,6 +24,10 @@ export const APP_ROUTES: Routes = [
 	{
 		path: "user-dashboard",
 		component: UserDashboardComponent
+	},
+	{
+		path: "admin",
+		component: AdminComponent
 	}
 ];
 

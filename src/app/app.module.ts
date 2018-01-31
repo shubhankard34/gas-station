@@ -5,6 +5,7 @@ import { AngularFireModule } from "angularfire2";
 import { FormsModule } from "@angular/forms";
 import { AngularFireAuth } from "angularfire2/auth";
 import { AngularFireDatabase } from "angularfire2/database"
+import { AgmCoreModule } from "@agm/core"
 
 import { AppComponent } from './app.component';
 import { APP_ROUTES } from "./app.routes";
@@ -12,7 +13,8 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { AuthService } from "./providers/auth.service";
-import { AgmCoreModule } from "@agm/core" 
+import { AdminComponent } from "./admin/admin.component";
+import { TechnicianListComponent } from "./admin/technician-list/technician-list.component";
 
 export const fireBaseConfig = {
     apiKey: "AIzaSyDW4rG5TcGS7i93hQVLi69WB_fsoqVXilA",
@@ -30,7 +32,9 @@ export const googleMapApiKey = "AIzaSyCIx6PCS1QqXGzmWw_A3LO7Y7cykdpnT5Q";
         AppComponent,
         LoginComponent,
         SignupComponent,
-        UserDashboardComponent
+        UserDashboardComponent,
+        AdminComponent,
+        TechnicianListComponent
     ],
     imports: [
         BrowserModule,
