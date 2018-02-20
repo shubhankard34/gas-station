@@ -38,44 +38,48 @@ export class UserDashboardComponent implements OnInit, AfterViewInit {
   private canCreateRequest: boolean = true;
 
   constructor(private angularFireDatabase: AngularFireDatabase, private angularFireAuth: AngularFireAuth, private router: Router) {
-    this.currentUser = angularFireAuth.authState;
-    this.currentUser.first().subscribe(
-      (res: any) => {
-        this.currentUserEmail = res.email;
-        angularFireDatabase.list("/users", {
-          query: {
-            orderByChild: "email",
-            equalTo: this.currentUserEmail
-          }
-        }).subscribe(
-          (users: any) => {
-            this.userDetails = users[0];
-            this.userDetails.id = users[0].$key;
-            this.currentUserName = this.userDetails.fname + " " + this.userDetails.lname;
-            angularFireDatabase.list("/orders").subscribe(
-              (orders: any) => {
-                for (let order of orders) {
-                  if (order.userId == this.userDetails.id && !order.completed) {
-                    this.orderDetails = order;
-                    this.orderDetails.id = order.$key;
-                    this.canCreateRequest = false;
-                  } else {
-                    this.canCreateRequest = true;
-                  }
-                }
-              }
-            );
-          }
-          );
-      }
-    );
-
   }
 
   ngOnInit() {
     if (navigator.geolocation) {
       this.isMapSupported = true;
     }
+
+    this.currentUser = this.angularFireAuth.authState;
+    this.currentUser.first().subscribe(
+      (res: any) => {
+        if (res) {
+          this.currentUserEmail = res.email;
+          this.angularFireDatabase.list("/users", {
+            query: {
+              orderByChild: "email",
+              equalTo: this.currentUserEmail
+            }
+          }).subscribe(
+            (users: any) => {
+              this.userDetails = users[0];
+              this.userDetails.id = users[0].$key;
+              this.currentUserName = this.userDetails.fname + " " + this.userDetails.lname;
+              this.angularFireDatabase.list("/orders").subscribe(
+                (orders: any) => {
+                  for (let order of orders) {
+                    if (order.userId == this.userDetails.id && !order.completed) {
+                      this.orderDetails = order;
+                      this.orderDetails.id = order.$key;
+                      this.canCreateRequest = false;
+                    } else {
+                      this.canCreateRequest = true;
+                    }
+                  }
+                }
+              );
+            }
+            );
+        } else {
+          this.router.navigate(["login"]);
+        }
+      }
+    );
 
   }
 

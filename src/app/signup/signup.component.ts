@@ -94,20 +94,3 @@ export class SignupComponent implements OnInit {
   }
 
 }
-
-
-
-
-// this.authService.signup(this.userDetails.email, this.userPassword).then(
-//   (res: any) => {
-//     this.errorMessages = [];
-//     this.infoMessages.push("Registered Successfully");
-//     this.angularFireDatabase.list("/users").push(this.userDetails);
-//     this.resetForm();
-//   }
-
-// ).catch(
-//   (error: any) => {
-//     this.errorMessages.push("Could not register");
-//   }
-//   );
