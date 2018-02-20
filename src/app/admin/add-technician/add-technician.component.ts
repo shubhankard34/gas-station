@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from "angularfire2/database";
+import { AngularFireAuth } from 'angularfire2/auth';
 
 import { TechnicianDetails } from "./../../models/technician-details";
 
@@ -10,7 +11,7 @@ import { TechnicianDetails } from "./../../models/technician-details";
 })
 export class AddTechnicianComponent {
 
-  constructor(private angularFireDatabase: AngularFireDatabase) { }
+  constructor(private angularFireDatabase: AngularFireDatabase, private angularFireAuth: AngularFireAuth) { }
   private newTechnician: TechnicianDetails = {
     id: "",
     fname: "",
@@ -33,15 +34,21 @@ export class AddTechnicianComponent {
         if (!this.technicianDetailsEmpty()) {
           if (!alreadyExists) {
             this.angularFireDatabase.list("/technicians").push(this.newTechnician);
-            this.newTechnician = {
-              id: "",
-              fname: "",
-              lname: "",
-              contact: "",
-              email: "",
-              username: "",
-              password: ""
-            };
+            this.angularFireAuth.auth.createUserWithEmailAndPassword(this.newTechnician.email, this.newTechnician.password)
+              .then(
+              (res: any) => {
+                this.angularFireAuth.auth.signOut();
+                this.newTechnician = {
+                  id: "",
+                  fname: "",
+                  lname: "",
+                  contact: "",
+                  email: "",
+                  username: "",
+                  password: ""
+                };
+              }
+              );
           } else {
             console.log("Technician already exists");
           }
