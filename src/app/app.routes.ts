@@ -6,12 +6,13 @@ import { LoginComponent } from "./login/login.component";
 import { SignupComponent } from "./signup/signup.component";
 import { UserDashboardComponent } from "./user-dashboard/user-dashboard.component";
 import { AdminComponent } from "./admin/admin.component";
+import { MechanicLoginComponent } from "./mechanic-login/mechanic-login.component";
+import { MechanicDashboardComponent } from "./mechanic-dashboard/mechanic-dashboard.component";
 export const APP_ROUTES: Routes = [
 	{
 		path: "",
 		redirectTo: "login",
 		pathMatch: "full"
-		// component: AppComponent
 	},
 	{
 		path: "login",
@@ -28,6 +29,14 @@ export const APP_ROUTES: Routes = [
 	{
 		path: "admin",
 		component: AdminComponent
+	},
+	{
+		path: "mechanic-login",
+		component: MechanicLoginComponent
+	},
+	{
+		path: "mechanic-dashboard",
+		component: MechanicDashboardComponent
 	}
 ];
 
