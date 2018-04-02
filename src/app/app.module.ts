@@ -19,6 +19,7 @@ import { AddTechnicianComponent } from "./admin/add-technician/add-technician.co
 import { MechanicLoginComponent } from "./mechanic-login/mechanic-login.component";
 import { MechanicDashboardComponent } from "./mechanic-dashboard/mechanic-dashboard.component";
 import { OrderListComponent } from "./mechanic-dashboard/order-list/order-list.component";
+import { MechanicOrderPageComponent } from "./mechanic-dashboard/mechanic-order-page/mechanic-order-page.component"; 
 
 export const fireBaseConfig = {
     apiKey: "AIzaSyDW4rG5TcGS7i93hQVLi69WB_fsoqVXilA",
@@ -42,7 +43,8 @@ export const googleMapApiKey = "AIzaSyCIx6PCS1QqXGzmWw_A3LO7Y7cykdpnT5Q";
         AddTechnicianComponent,
         MechanicLoginComponent,
         MechanicDashboardComponent,
-        OrderListComponent
+        OrderListComponent,
+        MechanicOrderPageComponent
     ],
     imports: [
         BrowserModule,

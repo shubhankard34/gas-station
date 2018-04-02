@@ -27,7 +27,7 @@ export class UserDashboardComponent implements OnInit, AfterViewInit {
   private userLat: string = "";
   private userLng: string = "";
   public isMapSupported: boolean = false;
-  private orderDetails: OrderDetails = {
+  private orderDetails: any = {
     id: "",
     userId: "",
     assignedTechnicianId: "",
@@ -36,6 +36,13 @@ export class UserDashboardComponent implements OnInit, AfterViewInit {
     completed: false
   }
   private canCreateRequest: boolean = true;
+  public assignedTechnicianId: string;
+  public assignedTechnician: any;
+  public requestLat: number;
+  public requestLng: number;
+  public technicianLat: number;
+  public technicianLng: number;
+  public otp: number;
 
   constructor(private angularFireDatabase: AngularFireDatabase, private angularFireAuth: AngularFireAuth, private router: Router) {
   }
@@ -67,6 +74,14 @@ export class UserDashboardComponent implements OnInit, AfterViewInit {
                       this.orderDetails = order;
                       this.orderDetails.id = order.$key;
                       this.canCreateRequest = false;
+                      this.assignedTechnicianId = order.assignedTechnicianId;
+                      this.getAssignedTechnician(this.assignedTechnicianId);
+                      this.requestLat = order.reqLat;
+                      this.requestLng = order.reqLng;
+                      this.technicianLat = order.technicianLat;
+                      this.technicianLng = order.technicianLng;
+                      this.otp = order.otp;
+                      break;
                     } else {
                       this.canCreateRequest = true;
                     }
@@ -131,6 +146,29 @@ export class UserDashboardComponent implements OnInit, AfterViewInit {
     this.orderDetails.reqLat = this.userLat;
     this.orderDetails.reqLng = this.userLng;
     this.orderDetails.userId = this.userDetails.id;
+    this.orderDetails.otp = this.generateOtp();
     this.angularFireDatabase.list("/orders").push(this.orderDetails);
+  }
+
+  private getAssignedTechnician(assignedTechnicianId: string): void {
+    if(assignedTechnicianId) {
+      this.angularFireDatabase.list("/technicians").subscribe(
+        (technicianList: any) => {
+          for(let technician of technicianList) {
+            if(technician.$key == this.assignedTechnicianId) {
+              this.assignedTechnician = technician;
+              console.log(this.assignedTechnician);
+            }
+          }
+        }
+      );
+    }
+  }
+
+  private generateOtp(): number {
+    let otp: number;
+    otp = Math.floor(1000 + Math.random() * 9000);
+    this.otp = otp;
+    return otp;
   }
 }

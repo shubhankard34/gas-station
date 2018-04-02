@@ -25,6 +25,8 @@ export class MechanicDashboardComponent implements OnInit {
     }
     private user: Observable<firebase.User>;
     private currentTechnician: TechnicianDetails;
+    private currentTechnicianId: string;
+    public currentOrder: any;
     public ngOnInit() {
         this.user.subscribe(
             (res) => {
@@ -33,6 +35,8 @@ export class MechanicDashboardComponent implements OnInit {
                         for (let tech of listOfTechnicians) {
                             if (res && tech.email == res.email) {
                                 this.currentTechnician = tech;
+                                this.currentTechnicianId = tech.$key;
+                                this.getCurrentOrder();
                             }
                         }
                     }
@@ -46,10 +50,25 @@ export class MechanicDashboardComponent implements OnInit {
     public logout() {
         this.angularFireAuth.auth.signOut()
             .then(
-            (res: any) => {
-                this.router.navigate(["mechanic-login"]);
-            }
+                (res: any) => {
+                    this.router.navigate(["mechanic-login"]);
+                }
             )
             .catch();
+    }
+
+    private getCurrentOrder(): void {
+        this.angularFireDatabase.list("/orders").subscribe(
+            (orderList: any) => {
+                for (let order of orderList) {
+                    if (order.assignedTechnicianId == this.currentTechnicianId && !order.completed) {
+                        this.currentOrder = order;
+                        break;
+                    } else {
+                        this.currentOrder = undefined;
+                    }
+                }
+            }
+        );
     }
 }
