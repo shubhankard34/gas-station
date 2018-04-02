@@ -27,4 +27,5 @@
     </div>
 </nav>
 
-<app-order-list></app-order-list>
+<app-order-list *ngIf = "!currentOrder" [currentTechnicianId] = "currentTechnicianId"></app-order-list>
+<app-mechanic-order-page *ngIf = "currentOrder" [currentTechnician] = "currentTechnician"></app-mechanic-order-page>

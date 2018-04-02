@@ -7,3 +7,10 @@ agm-map {
     margin-bottom: 1em;
     width: 100%;
 }
+
+.gs-alert {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    width: 100%;
+    text-align: center;
+}

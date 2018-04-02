@@ -1,0 +1,14 @@
+<div class="container">
+    <agm-map [latitude]=userLat [longitude]=userLng>
+        <agm-marker [iconUrl]="'assets/user-resized.png'" [latitude]=userLat [longitude]=userLng></agm-marker>
+        <agm-marker [iconUrl]="'assets/mechanic-resized.png'" [latitude]=technicianLat [longitude]=technicianLng></agm-marker>
+    </agm-map>
+
+    <a class="btn btn-primary gs-google-map-button" [href]="google">Open Google maps for navigation</a>
+
+    <div class="form-group">
+        <label for="otpInput">Customer OTP</label>
+        <input type="text" class="form-control" id="otpInput" name = "otpInput" [(ngModel)] = "otpInput" maxlength="4" placeholder="4 digit OTP">
+    </div>
+    <button type="submit" class="btn btn-success" (click) = "completeOrder()">Complete Request</button>
+</div>

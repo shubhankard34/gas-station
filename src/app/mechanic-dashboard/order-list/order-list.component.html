@@ -3,7 +3,7 @@
         <h1>Available Orders</h1>
     </div>
     <table class="table table-hover">
-        <tr *ngFor="let userorder of userOrderList">
+        <tr *ngFor="let userorder of userOrderList" (click) = "openOrder(userorder)">
             <td>{{userorder.user.fname}} {{userorder.user.lname}}</td>
             <td>{{getDistance(userorder.order.reqLat, userorder.order.reqLng)}} kms</td>
         </tr>

@@ -2,12 +2,13 @@
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
             <a class="navbar-brand" href="#">Service Station</a>
         </div>
 
@@ -15,10 +16,16 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{currentUserName}}<span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{currentUserName}}
+                        <span class="caret"></span>
+                    </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">My Account</a></li>
-                        <li><a (click)="logout()">Logout</a></li>
+                        <li>
+                            <a href="#">My Account</a>
+                        </li>
+                        <li>
+                            <a (click)="logout()">Logout</a>
+                        </li>
                     </ul>
                 </li>
             </ul>
@@ -27,9 +34,22 @@
 </nav>
 
 <div class="container">
-    <agm-map [latitude]=userLat [longitude]=userLng [zoom]="18" (mapClick)="setMapMarker($event)">
+    <agm-map *ngIf="canCreateRequest && !assignedTechnicianId" [latitude]=userLat [longitude]=userLng [zoom]="18" (mapClick)="setMapMarker($event)">
         <agm-marker [latitude]=userLat [longitude]=userLng></agm-marker>
     </agm-map>
-    <button class="btn btn-warning gs-mylocation-button" (click)="getMyLocation()">My Location</button>
-    <button *ngIf="canCreateRequest" class="btn btn-primary gs-mylocation-button" (click)="requestTechnician()">Request Technician</button>
+    <agm-map *ngIf="!canCreateRequest" [latitude]=requestLat [longitude]=requestLng>
+        <agm-marker [iconUrl]="'assets/user-resized.png'" [latitude]=requestLat [longitude]=requestLng></agm-marker>
+        <agm-marker [iconUrl]="'assets/mechanic-resized.png'" [latitude]=technicianLat [longitude]=technicianLng></agm-marker>
+    </agm-map>
+    <button *ngIf="canCreateRequest && !assignedTechnicianId" class="btn btn-warning gs-mylocation-button" (click)="getMyLocation()">My Location</button>
+    <button *ngIf="canCreateRequest && !assignedTechnicianId" class="btn btn-primary gs-mylocation-button" (click)="requestTechnician()">Request Mechanic</button>
+    <div *ngIf="!canCreateRequest && !assignedTechnicianId" class="alert alert-info" role="alert">We have recieved your request. Waiting for a mechanic whom we can assign to you. Thank you.</div>
+    <div *ngIf="!canCreateRequest && assignedTechnicianId" class="alert alert-success gs-alert" role="alert">A mechanic has been assigned to you. He is on his way. His current location will be updated on the map above.
+        <strong>Your OTP is: {{otp}}.</strong> Please disclose your OTP to the mechanic only after your order is complete. Following are the mechanic details:
+    </div>
+    <ul *ngIf="!canCreateRequest && assignedTechnicianId" class="list-group">
+        <li class="list-group-item">{{assignedTechnician.fname}} {{assignedTechnician.lname}}</li>
+        <li class="list-group-item">Contact No.: {{assignedTechnician.contact}}</li>
+        <li class="list-group-item">{{assignedTechnician.email}}</li>
+    </ul>
 </div>

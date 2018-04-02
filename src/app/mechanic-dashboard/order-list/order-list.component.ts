@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterContentChecked } from '@angular/core';
+import { Component, OnInit, AfterContentChecked, Input } from '@angular/core';
 import { Router } from "@angular/router";
 import { Observable } from 'rxjs/Observable';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -19,7 +19,9 @@ export class OrderListComponent implements OnInit, AfterContentChecked {
     public mechLat: string = "";
     public mechLng: string = "";
 
-    constructor(private afd: AngularFireDatabase) { }
+    @Input()
+    public currentTechnicianId: string;
+    constructor(private afd: AngularFireDatabase, private router: Router) { }
     public ngOnInit(): void {
         if (navigator.geolocation) {
             this.isMapSupported = true;
@@ -45,8 +47,6 @@ export class OrderListComponent implements OnInit, AfterContentChecked {
                         }
                     );
                 }
-                console.log(this.userOrderList);
-                // console.log(this.orderList);
             }
         );
     }
@@ -81,5 +81,10 @@ export class OrderListComponent implements OnInit, AfterContentChecked {
         dist = dist * 1.609344;
         distance = dist.toPrecision(3);
         return distance;
+    }
+
+    private openOrder(userOrder: any): void {
+        userOrder.order.assignedTechnicianId = this.currentTechnicianId;
+        this.afd.list("/orders").update(userOrder.order.$key, userOrder.order)
     }
 }
