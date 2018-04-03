@@ -84,6 +84,8 @@ export class UserDashboardComponent implements OnInit, AfterViewInit {
                       break;
                     } else {
                       this.canCreateRequest = true;
+                      this.assignedTechnicianId = undefined;
+                      this.assignedTechnician = undefined;
                     }
                   }
                 }
@@ -147,6 +149,7 @@ export class UserDashboardComponent implements OnInit, AfterViewInit {
     this.orderDetails.reqLng = this.userLng;
     this.orderDetails.userId = this.userDetails.id;
     this.orderDetails.otp = this.generateOtp();
+    this.orderDetails.assignedTechnicianId = "";
     this.angularFireDatabase.list("/orders").push(this.orderDetails);
   }
 
