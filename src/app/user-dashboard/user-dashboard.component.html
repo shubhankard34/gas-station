@@ -45,7 +45,8 @@
     <button *ngIf="canCreateRequest && !assignedTechnicianId" class="btn btn-primary gs-mylocation-button" (click)="requestTechnician()">Request Mechanic</button>
     <div *ngIf="!canCreateRequest && !assignedTechnicianId" class="alert alert-info" role="alert">We have recieved your request. Waiting for a mechanic whom we can assign to you. Thank you.</div>
     <div *ngIf="!canCreateRequest && assignedTechnicianId" class="alert alert-success gs-alert" role="alert">A mechanic has been assigned to you. He is on his way. His current location will be updated on the map above.
-        <strong>Your OTP is: {{otp}}.</strong> Please disclose your OTP to the mechanic only after your order is complete. Following are the mechanic details:
+        <strong>Your OTP is: {{otp}}.</strong> Please disclose your OTP to the mechanic only after your order is complete.
+        Following are the mechanic details:
     </div>
     <ul *ngIf="!canCreateRequest && assignedTechnicianId" class="list-group">
         <li class="list-group-item">{{assignedTechnician.fname}} {{assignedTechnician.lname}}</li>
@@ -53,3 +54,5 @@
         <li class="list-group-item">{{assignedTechnician.email}}</li>
     </ul>
 </div>
+
+<app-paypal-button></app-paypal-button>
