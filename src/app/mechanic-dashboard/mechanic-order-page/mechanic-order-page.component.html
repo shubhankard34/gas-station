@@ -5,10 +5,20 @@
     </agm-map>
 
     <a class="btn btn-primary gs-google-map-button" [href]="google">Open Google maps for navigation</a>
-
-    <div class="form-group">
-        <label for="otpInput">Customer OTP</label>
-        <input type="text" class="form-control" id="otpInput" name = "otpInput" [(ngModel)] = "otpInput" maxlength="4" placeholder="4 digit OTP">
+    <div *ngIf="!currentOrder.totalAmount">
+        <div class="form-group">
+            <label for="amountInput">Total amount to be paid</label>
+            <input type="number" class="form-control" id="amountInput" name="amountInput" [(ngModel)]="amountInput" placeholder="Ex. 199">
+        </div>
+        <button type="submit" class="btn btn-primary" (click)="submitTotalAmount()">Submit Cost</button>
     </div>
-    <button type="submit" class="btn btn-success" (click) = "completeOrder()">Complete Request</button>
+    <div *ngIf="currentOrder.totalAmount && !currentOrder.isPaymentDone" class="alert alert-info" role="alert">
+        Waiting for payment of <strong>INR {{currentOrder.totalAmount}}</strong></div>
+    <div *ngIf="currentOrder.totalAmount && currentOrder.isPaymentDone">
+        <div class="form-group">
+            <label for="otpInput">Customer OTP</label>
+            <input type="text" class="form-control" id="otpInput" name="otpInput" [(ngModel)]="otpInput" maxlength="4" placeholder="4 digit OTP">
+        </div>
+        <button type="submit" class="btn btn-success" (click)="completeOrder()">Complete Request</button>
+    </div>
 </div>
