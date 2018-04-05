@@ -43,6 +43,8 @@ export class UserDashboardComponent implements OnInit, AfterViewInit {
   public technicianLat: number;
   public technicianLng: number;
   public otp: number;
+  public isPaymentDone: boolean;
+  public totalAmount: number;
 
   constructor(private angularFireDatabase: AngularFireDatabase, private angularFireAuth: AngularFireAuth, private router: Router) {
   }
@@ -81,6 +83,8 @@ export class UserDashboardComponent implements OnInit, AfterViewInit {
                       this.technicianLat = order.technicianLat;
                       this.technicianLng = order.technicianLng;
                       this.otp = order.otp;
+                      this.isPaymentDone = order.isPaymentDone;
+                      this.totalAmount = order.totalAmount;
                       break;
                     } else {
                       this.canCreateRequest = true;
@@ -150,15 +154,20 @@ export class UserDashboardComponent implements OnInit, AfterViewInit {
     this.orderDetails.userId = this.userDetails.id;
     this.orderDetails.otp = this.generateOtp();
     this.orderDetails.assignedTechnicianId = "";
+    this.orderDetails.orderTime = new Date().getTime();
+    this.orderDetails.technicianLat = "";
+    this.orderDetails.technicianLng = "";
+    this.orderDetails.isPaymentDone = false;
+    this.orderDetails.totalAmount = "";
     this.angularFireDatabase.list("/orders").push(this.orderDetails);
   }
 
   private getAssignedTechnician(assignedTechnicianId: string): void {
-    if(assignedTechnicianId) {
+    if (assignedTechnicianId) {
       this.angularFireDatabase.list("/technicians").subscribe(
         (technicianList: any) => {
-          for(let technician of technicianList) {
-            if(technician.$key == this.assignedTechnicianId) {
+          for (let technician of technicianList) {
+            if (technician.$key == this.assignedTechnicianId) {
               this.assignedTechnician = technician;
               console.log(this.assignedTechnician);
             }
@@ -173,5 +182,15 @@ export class UserDashboardComponent implements OnInit, AfterViewInit {
     otp = Math.floor(1000 + Math.random() * 9000);
     this.otp = otp;
     return otp;
+  }
+
+  public paymentComplete(event: any): void {
+    if (event) {
+      this.orderDetails.isPaymentDone = true;
+      alert("Payment Successful!")
+    } else {
+      this.orderDetails.isPaymentDone = false;
+    }
+    this.angularFireDatabase.list("/orders").update(this.orderDetails.$key, this.orderDetails);
   }
 }

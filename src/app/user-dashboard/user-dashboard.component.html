@@ -52,7 +52,9 @@
         <li class="list-group-item">{{assignedTechnician.fname}} {{assignedTechnician.lname}}</li>
         <li class="list-group-item">Contact No.: {{assignedTechnician.contact}}</li>
         <li class="list-group-item">{{assignedTechnician.email}}</li>
+        <div *ngIf="!isPaymentDone && totalAmount" class="alert alert-info" role="alert">
+            Total bill of amount: <strong>INR {{totalAmount}}</strong>
+            <app-paypal-button [finalAmount]="totalAmount" (successfullyPaid) = "paymentComplete($event)"></app-paypal-button>
+        </div>
     </ul>
 </div>
-
-<app-paypal-button></app-paypal-button>

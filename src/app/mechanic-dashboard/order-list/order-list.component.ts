@@ -85,6 +85,7 @@ export class OrderListComponent implements OnInit, AfterContentChecked {
 
     private openOrder(userOrder: any): void {
         userOrder.order.assignedTechnicianId = this.currentTechnicianId;
+        userOrder.order.isPaymentDone = false;
         this.afd.list("/orders").update(userOrder.order.$key, userOrder.order)
     }
 }

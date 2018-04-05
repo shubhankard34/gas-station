@@ -22,6 +22,7 @@ export class MechanicOrderPageComponent {
     public google: any;
     public otp: number;
     public otpInput: any;
+    public amountInput: any;
 
     constructor(private angularFireDatabase: AngularFireDatabase) { }
 
@@ -68,12 +69,20 @@ export class MechanicOrderPageComponent {
     }
 
     public completeOrder(): void {
-        if(this.otpInput == this.otp) {
+        if (this.otpInput == this.otp) {
             console.log("completed");
             this.currentOrder.completed = true;
             this.angularFireDatabase.list("/orders").update(this.currentOrder.$key, this.currentOrder);
         } else {
             console.log("not completed!")
+        }
+    }
+
+    public submitTotalAmount(): void {
+        if (this.amountInput) {
+            this.currentOrder.completed = false;
+            this.currentOrder.totalAmount = this.amountInput;
+            this.angularFireDatabase.list("/orders").update(this.currentOrder.$key, this.currentOrder);
         }
     }
 }

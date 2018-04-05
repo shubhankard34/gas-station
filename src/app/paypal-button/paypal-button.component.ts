@@ -1,4 +1,4 @@
-import { Component, AfterViewChecked } from '@angular/core';
+import { Component, AfterViewChecked, Input, Output, EventEmitter } from '@angular/core';
 
 declare let paypal: any;
 
@@ -7,7 +7,11 @@ declare let paypal: any;
     templateUrl: './paypal-button.component.html',
 })
 export class PaypalButtonComponent implements AfterViewChecked {
-    public finalAmount: number = 1;
+    @Input()
+    public finalAmount: number;
+
+    @Output()
+    private successfullyPaid: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     public addScript: boolean = false;
 
@@ -35,7 +39,12 @@ export class PaypalButtonComponent implements AfterViewChecked {
         onAuthorize: (data, actions) => {
             return actions.payment.execute().then(
                 (payment) => {
-                    console.log(payment);
+                    this.successfullyPaid.emit(true);
+                }
+            )
+            .catch(
+                (error) => {
+                    this.successfullyPaid.emit(false);
                 }
             );
         }
