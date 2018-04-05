@@ -8,6 +8,8 @@ import { UserDashboardComponent } from "./user-dashboard/user-dashboard.componen
 import { AdminComponent } from "./admin/admin.component";
 import { MechanicLoginComponent } from "./mechanic-login/mechanic-login.component";
 import { MechanicDashboardComponent } from "./mechanic-dashboard/mechanic-dashboard.component";
+import { UserOrderHistoryComponent } from "./user-order-history/user-order-history.component";
+
 export const APP_ROUTES: Routes = [
 	{
 		path: "",
@@ -37,6 +39,10 @@ export const APP_ROUTES: Routes = [
 	{
 		path: "mechanic-dashboard",
 		component: MechanicDashboardComponent
+	},
+	{
+		path: "user-order-history",
+		component: UserOrderHistoryComponent
 	}
 ];
 
