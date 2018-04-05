@@ -21,6 +21,7 @@ import { MechanicDashboardComponent } from "./mechanic-dashboard/mechanic-dashbo
 import { OrderListComponent } from "./mechanic-dashboard/order-list/order-list.component";
 import { MechanicOrderPageComponent } from "./mechanic-dashboard/mechanic-order-page/mechanic-order-page.component"; 
 import { PaypalButtonComponent } from "./paypal-button/paypal-button.component";
+import { UserOrderHistoryComponent } from "./user-order-history/user-order-history.component";
 
 export const fireBaseConfig = {
     apiKey: "AIzaSyDW4rG5TcGS7i93hQVLi69WB_fsoqVXilA",
@@ -46,7 +47,8 @@ export const googleMapApiKey = "AIzaSyCIx6PCS1QqXGzmWw_A3LO7Y7cykdpnT5Q";
         MechanicDashboardComponent,
         OrderListComponent,
         MechanicOrderPageComponent,
-        PaypalButtonComponent
+        PaypalButtonComponent,
+        UserOrderHistoryComponent
     ],
     imports: [
         BrowserModule,

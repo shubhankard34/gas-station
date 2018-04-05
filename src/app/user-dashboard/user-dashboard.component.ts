@@ -193,4 +193,8 @@ export class UserDashboardComponent implements OnInit, AfterViewInit {
     }
     this.angularFireDatabase.list("/orders").update(this.orderDetails.$key, this.orderDetails);
   }
+
+  public goToUserHistory(): void {
+    this.router.navigate(["user-order-history"]);
+  }
 }
