@@ -8,6 +8,77 @@ import * as firebase from 'firebase/app';
 import { UserDetails } from "./../models/user-details";
 import { OrderDetails } from "./../models/order-details";
 
+export const SERVICE_STATIONS: any[] = [
+  {
+    stationLat: 19.029833,
+    stationLng: 73.057901
+  },
+  {
+    stationLat: 19.030997,
+    stationLng: 73.058213
+  },
+  {
+    stationLat: 19.030291,
+    stationLng: 73.058011
+  },
+  {
+    stationLat: 19.028693,
+    stationLng: 73.059933
+  },
+  {
+    stationLat: 19.030074,
+    stationLng: 73.057906
+  },
+  {
+    stationLat: 19.029860,
+    stationLng: 73.057852
+  },
+  {
+    stationLat: 19.039614,
+    stationLng: 73.070428
+  },
+  {
+    stationLat: 19.043636,
+    stationLng: 73.063659
+  },
+  {
+    stationLat: 19.041843,
+    stationLng: 73.072196
+  },
+  {
+    stationLat: 19.035175,
+    stationLng: 73.075324
+  },
+  {
+    stationLat: 19.049057,
+    stationLng: 73.070220
+  },
+  {
+    stationLat: 19.048557,
+    stationLng: 73.064834
+  },
+  {
+    stationLat: 19.049025,
+    stationLng: 73.079498
+  },
+  {
+    stationLat: 19.013885,
+    stationLng: 73.040636
+  },
+  {
+    stationLat: 19.021087,
+    stationLng: 73.103470
+  },
+  {
+    stationLat: 19.020204,
+    stationLng: 73.092769
+  },
+  {
+    stationLat: 19.033334,
+    stationLng: 73.106107
+  }
+];
+
 @Component({
   selector: 'app-user-dashboard',
   templateUrl: './user-dashboard.component.html',
@@ -45,6 +116,7 @@ export class UserDashboardComponent implements OnInit, AfterViewInit {
   public otp: number;
   public isPaymentDone: boolean;
   public totalAmount: number;
+  public serviceStations: any = SERVICE_STATIONS;
 
   constructor(private angularFireDatabase: AngularFireDatabase, private angularFireAuth: AngularFireAuth, private router: Router) {
   }
@@ -52,6 +124,7 @@ export class UserDashboardComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     if (navigator.geolocation) {
       this.isMapSupported = true;
+      console.log(this.serviceStations);
     }
 
     this.currentUser = this.angularFireAuth.authState;
@@ -196,5 +269,10 @@ export class UserDashboardComponent implements OnInit, AfterViewInit {
 
   public goToUserHistory(): void {
     this.router.navigate(["user-order-history"]);
+  }
+
+  public goToGoogleNavigation(lat, lng): void {
+    let url = "https://www.google.com/maps/dir/?api=1&destination=" + lat + "," + lng + "&dir_action=navigate&travelmode=driving";
+    window.open(url, "_blank");
   }
 }
