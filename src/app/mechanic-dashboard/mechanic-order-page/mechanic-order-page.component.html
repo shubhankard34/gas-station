@@ -4,7 +4,7 @@
         <agm-marker [iconUrl]="'assets/mechanic-resized.png'" [latitude]=technicianLat [longitude]=technicianLng></agm-marker>
     </agm-map>
 
-    <a class="btn btn-primary gs-google-map-button" [href]="google">Open Google maps for navigation</a>
+    <a class="btn btn-primary gs-google-map-button" [href]="google" target="_blank">Open Google maps for navigation</a>
     <div *ngIf="!currentOrder.totalAmount">
         <div class="form-group">
             <label for="amountInput">Total amount to be paid</label>

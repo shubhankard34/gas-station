@@ -36,6 +36,8 @@
 <div class="container">
     <agm-map *ngIf="canCreateRequest && !assignedTechnicianId" [latitude]=userLat [longitude]=userLng [zoom]="18" (mapClick)="setMapMarker($event)">
         <agm-marker [latitude]=userLat [longitude]=userLng></agm-marker>
+        <agm-marker *ngFor="let serviceStation of serviceStations" [iconUrl]="'assets/garage.png'" [latitude]=serviceStation.stationLat
+            [longitude]=serviceStation.stationLng (markerClick)="goToGoogleNavigation(serviceStation.stationLat,serviceStation.stationLng)"></agm-marker>
     </agm-map>
     <agm-map *ngIf="!canCreateRequest" [latitude]=requestLat [longitude]=requestLng>
         <agm-marker [iconUrl]="'assets/user-resized.png'" [latitude]=requestLat [longitude]=requestLng></agm-marker>
@@ -54,7 +56,7 @@
         <li class="list-group-item">{{assignedTechnician.email}}</li>
         <div *ngIf="!isPaymentDone && totalAmount" class="alert alert-info" role="alert">
             Total bill of amount: <strong>INR {{totalAmount}}</strong>
-            <app-paypal-button [finalAmount]="totalAmount" (successfullyPaid) = "paymentComplete($event)"></app-paypal-button>
+            <app-paypal-button [finalAmount]="totalAmount" (successfullyPaid)="paymentComplete($event)"></app-paypal-button>
         </div>
     </ul>
 </div>
