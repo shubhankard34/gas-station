@@ -50,9 +50,9 @@ export class MechanicDashboardComponent implements OnInit {
     public logout() {
         this.angularFireAuth.auth.signOut()
             .then(
-                (res: any) => {
-                    this.router.navigate(["mechanic-login"]);
-                }
+            (res: any) => {
+                this.router.navigate(["mechanic-login"]);
+            }
             )
             .catch();
     }
@@ -70,5 +70,9 @@ export class MechanicDashboardComponent implements OnInit {
                 }
             }
         );
+    }
+
+    public goToHistory(): void {
+        this.router.navigate(["mechanic-order-history"]);
     }
 }
