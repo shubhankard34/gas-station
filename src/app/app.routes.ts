@@ -9,6 +9,7 @@ import { AdminComponent } from "./admin/admin.component";
 import { MechanicLoginComponent } from "./mechanic-login/mechanic-login.component";
 import { MechanicDashboardComponent } from "./mechanic-dashboard/mechanic-dashboard.component";
 import { UserOrderHistoryComponent } from "./user-order-history/user-order-history.component";
+import { MechanicOrderHistoryComponent } from "./mechanic-order-history/mechanic-order-history.component";
 
 export const APP_ROUTES: Routes = [
 	{
@@ -43,6 +44,10 @@ export const APP_ROUTES: Routes = [
 	{
 		path: "user-order-history",
 		component: UserOrderHistoryComponent
+	},
+	{
+		path: "mechanic-order-history",
+		component: MechanicOrderHistoryComponent
 	}
 ];
 
